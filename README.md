@@ -6,17 +6,17 @@ Wish I could add this to Aimmy 2.0, but unfortunately, it's closed source and I'
 
 Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fortnite Bot Undetected, Fortnite Arduino
 
-Features and Advantages:
+# Features and Advantages:
 - HID communication (No COM port required! Say goodbye to detection!)
 - Easy to setup, just upload the script to your Arduino and get to work! (Unless you haven't spoofed your Arduino and disabled the COM port)
 - Unlike Aimmy, fully undetected in R6, CoD, Apex, Fortnite, and some other games. If you use this in Valorant, it'll flag your account so you won't get banned for a month or 2 or until you reach Ascendant rank. CS2 FaceIt probably isn't safe either.
 
-Downsides:
+# Downsides:
 - As of right now, it does not support USB Host Shields. (Should be easy to add though! If you succeed in adding it, please message me on Discord: Seconb). I can't add Host Shield support because I don't have one.
 - Does not support Arduinos that don't have an ATmega32U4 chip, meaning only the Arduino Micro and Arduino Leonardo R3 will work.
 
 # Arduino Setup Tutorial
-- Download Arduino IDE 1.8.19, accept everything in the tutorial. [https://downloads.arduino.cc/arduino-1.8.19-windows.exe](url)
+- Download Arduino IDE 1.8.19, accept everything in the setup. [https://downloads.arduino.cc/arduino-1.8.19-windows.exe](url)
 - Spoof your Arduino's PID and VID. This makes it so that your Arduino looks like an exact copy of your mouse. Do what this guy does in his video: [https://www.youtube.com/watch?v=krjCJBfBgr4](url) (THIS IS SOMEONE'S SETUP FOR A RANDOM VALORANT CHEAT, IGNORE THAT PART. JUST DO THE PID AND VID CHANGING THING).
 - Disable COM port: While you're still in the boards.txt to spoof your Arduino, look for the line that says "leonardo.build.extra_flags={build.usb_flags}" and add -DCDC_DISABLED to the end of it, so it becomes "leonardo.build.extra_flags={build.usb_flags} -DCDC_DISABLED" (without the quotes obviously)
 - Go to the files you extracted from downloading
@@ -34,7 +34,12 @@ Downsides:
 - Do the Arduino Setup Tutorial before you do this
 - Download and extract Aimmy Arduino Edition if you haven't done that already, makes sure your anti-virus is off. Most of what you do with real Aimmy applies.
 - Run Netflix.vmp.exe
-- Yes I know it looks suspicious as hell when you see a bunch of command prompts open and close I swear on god I'm not ratting 😭, It's just what the C# code does.
+- Yes I know it looks suspicious as hell when you see a bunch of command prompts open and close I swear on god I'm not ratting 😭, It's just what the C# code does. If you don't believe me, try decompiling the program with ilSpy and decompile the mousemovement.exe using pyinstxtractor or whatever it's called. It's open source anyway so who cares!
 - If it says "Mouse device found" then that means it's probably working. Use it the same as you would use normal Aimmy.
 
 **DO NOT DM ME ON DISCORD FOR HELP I WILL BLOCK YOU**
+
+# Credits:
+[https://github.com/khanxbahria/MouseInstruct](url) - HUGE HELP THIS REPO IS REALLY AWESOME AND THE ONLY REASON WHY THIS EXISTS GO TO IT AND STAR IT!!!!
+ChatGPT Plus - Self explanatory, completed the parts I was too lazy to write
+Seconb (me) - I did all the work over a span of like 6 or 7 hours (the first prototype took like 4 hours and didn't work so I had to start from scratch, then the second version worked)
