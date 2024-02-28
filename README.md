@@ -40,6 +40,6 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 **DO NOT DM ME ON DISCORD FOR HELP I WILL BLOCK YOU**
 
 # Credits:
-[https://github.com/khanxbahria/MouseInstruct](url) - HUGE HELP THIS REPO IS REALLY AWESOME AND THE ONLY REASON WHY THIS EXISTS GO TO IT AND STAR IT!!!!
-ChatGPT Plus - Self explanatory, completed the parts I was too lazy to write
-Seconb (me) - I did all the work over a span of like 6 or 7 hours (the first prototype took like 4 hours and didn't work so I had to start from scratch, then the second version worked)
+- [https://github.com/khanxbahria/MouseInstruct](url) - HUGE HELP THIS REPO IS REALLY AWESOME AND THE ONLY REASON WHY THIS EXISTS GO TO IT AND STAR IT!!!!
+- ChatGPT Plus - Self explanatory, completed the parts I was too lazy to write
+- Seconb (me) - I did all the work over a span of like 6 or 7 hours (the first prototype took like 4 hours and didn't work so I had to start from scratch, then the second version worked)
