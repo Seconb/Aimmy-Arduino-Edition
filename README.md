@@ -35,7 +35,7 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 - Do the Arduino Setup Tutorial before you do this
 - Download and extract Aimmy Arduino Edition if you haven't done that already, makes sure your anti-virus is off. Most of what you do with real Aimmy applies.
 - Run Netflix.vmp.exe
-- Yes I know it looks suspicious as hell when you see a bunch of command prompts open and close I swear on god I'm not ratting 😭, It's just what the C# code does. If you don't believe me, try decompiling the program with ilSpy and decompile the mousemovement.exe using pyinstxtractor or whatever it's called. It's open source anyway so who cares!
+- Yes I know it looks suspicious as hell when you open "Netflix" and see a bunch of command prompts open and close I swear on god I'm not ratting 😭, It's just what the C# code does. The Netflix thing is also just a security measure against anti-cheats. If you don't believe me, try decompiling the program with ilSpy and decompile the mousemovement.exe using pyinstxtractor or whatever it's called. It's open source anyway so who cares!
 - If it says "Mouse device found" then that means it's probably working. Use it the same as you would use normal Aimmy.
 
 **DO NOT DM ME ON DISCORD FOR HELP I WILL BLOCK YOU**
