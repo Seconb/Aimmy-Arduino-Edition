@@ -23,7 +23,8 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 - Go to the files you extracted from downloading
 - Go to the download for the tool and extract it anywhere
 - Go to the Arduino folder and run MouseInstructArduino.ino
-- When the Arduino IDE opens, click the button in the top left that shows an arrow pointing to the right (the Upload button) then QUICKLY press the reset button on your Arduino, which should look something like this: https://support.arduino.cc/hc/article_attachments/5779192777244
+- When that opens, press CTRL+SHIFT+I. Search HID-Project and install it. It should say it's by NicoHood or something.
+- Next, click the button in the top left that shows an arrow pointing to the right (the Upload button) then QUICKLY press the reset button on your Arduino, which should look something like this: https://support.arduino.cc/hc/article_attachments/5779192777244
 - After it says "Done uploading" open Device Manager on your PC, you can just press the Windows Key and start typing "Device Manager" and it should pop up.
 - Click the arrow next to "Ports (COM & LPT)
 - If the only thing you see is "Communications Port (COM1)" you're good.
