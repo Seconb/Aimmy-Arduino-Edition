@@ -14,6 +14,7 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 # Downsides:
 - As of right now, it does not support USB Host Shields. (Should be easy to add though! If you succeed in adding it, please message me on Discord: Seconb). I can't add Host Shield support because I don't have one.
 - Does not support Arduinos that don't have an ATmega32U4 chip, meaning only the Arduino Micro and Arduino Leonardo R3 will work.
+- The Aimmy part itself is really easy to setup because you just extract it and run Netflix.vmp.exe, but if you don't know how to use an Arduino then have fun doing the tutorial below! I will not help you I swear to god if you DM me asking for help (and not related to the Host Shield thing I said above) I will block you so fast.
 
 # Arduino Setup Tutorial
 - Download Arduino IDE 1.8.19, accept everything in the setup. [https://downloads.arduino.cc/arduino-1.8.19-windows.exe](url)
