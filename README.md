@@ -17,13 +17,13 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 - The Aimmy part itself is really easy to setup because you just extract it and run Netflix.vmp.exe, but if you don't know how to use an Arduino then have fun doing the tutorial below! I will not help you I swear to god if you DM me asking for help (and not related to the Host Shield thing I said above) I will block you so fast.
 
 # Arduino Setup Tutorial
-- Download Arduino IDE 1.8.19, accept everything in the setup. [https://downloads.arduino.cc/arduino-1.8.19-windows.exe](url)
-- Spoof your Arduino's PID and VID. This makes it so that your Arduino looks like an exact copy of your mouse. Do what this guy does in his video: [https://www.youtube.com/watch?v=krjCJBfBgr4](url) (THIS IS SOMEONE'S SETUP FOR A RANDOM VALORANT CHEAT, IGNORE THAT PART. JUST DO THE PID AND VID CHANGING THING).
+- Download Arduino IDE 1.8.19, accept everything in the setup. https://downloads.arduino.cc/arduino-1.8.19-windows.exe
+- Spoof your Arduino's PID and VID. This makes it so that your Arduino looks like an exact copy of your mouse. Do what this guy does in his video: https://www.youtube.com/watch?v=krjCJBfBgr4 (THIS IS SOMEONE'S SETUP FOR A RANDOM VALORANT CHEAT, IGNORE THAT PART. JUST DO THE PID AND VID CHANGING THING).
 - Disable COM port: While you're still in the boards.txt to spoof your Arduino, look for the line that says "leonardo.build.extra_flags={build.usb_flags}" and add -DCDC_DISABLED to the end of it, so it becomes "leonardo.build.extra_flags={build.usb_flags} -DCDC_DISABLED" (without the quotes obviously)
 - Go to the files you extracted from downloading
 - Go to the download for the tool and extract it anywhere
 - Go to the Arduino folder and run MouseInstructArduino.ino
-- When the Arduino IDE opens, click the button in the top left that shows an arrow pointing to the right (the Upload button) then QUICKLY press the reset button on your Arduino, which should look something like this: [https://support.arduino.cc/hc/article_attachments/5779192777244](url)
+- When the Arduino IDE opens, click the button in the top left that shows an arrow pointing to the right (the Upload button) then QUICKLY press the reset button on your Arduino, which should look something like this: https://support.arduino.cc/hc/article_attachments/5779192777244
 - After it says "Done uploading" open Device Manager on your PC, you can just press the Windows Key and start typing "Device Manager" and it should pop up.
 - Click the arrow next to "Ports (COM & LPT)
 - If the only thing you see is "Communications Port (COM1)" you're good.
