@@ -1,3 +1,7 @@
+# i will not lie chatgpt did do a lot of the work for this code
+# only out of my own laziness
+
+
 from colorama import Style, Fore
 from time import sleep
 from os import system, path, chmod
