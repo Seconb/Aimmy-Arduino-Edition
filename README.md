@@ -1,8 +1,7 @@
 ## Aimmy Arduino Edition!
-Aimmy 1.5.2... but with Arduino support!
-Wish I could add this to Aimmy 2.0, but unfortunately, it's closed source and I'm not an official dev for Aimmy.
+Aimmy but with Arduino support!
 
-Star this repo to support me, but to support Aimmy's development donate to Babyhamsta via the attached sponsor link!
+Star this repo to support me, but to support Aimmy's development donate to Babyhamsta via the sponsor link on the official Aimmy GitHub repo!
 
 **DO NOT ASK FOR HELP ON DISCORD. ONLY DM ME IF YOU WANNA ADD HOST SHIELD SUPPORT.**
 
@@ -24,7 +23,6 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 - Download [Aimmy Arduino Edition Download](https://github.com/Seconb/Aimmy-Arduino-Edition/releases/tag/v2) and extract it
 - Run arduinospoofer.exe **AS ADMIN**
 - Once that finishes, open MouseInstructArduino.ino
-- In that window, press CTRL+SHIFT+I. Search HID-Project and install it
 - Next, click the upload button (the arrow pointing to the right in the top left of the Arduino IDE), wait one second, then press the red RESET button on your Arduino in real life
 - If it says "Done Uploading.", you're set to continue, otherwise try again or fix whatever error it gave you.
 - Run Discord_protected.exe as admin (You can also run Discord.exe, but it's less safe against anticheats because it isn't packed with Themida)
