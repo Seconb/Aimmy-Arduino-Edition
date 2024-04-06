@@ -3,7 +3,7 @@ Aimmy but with Arduino support!
 
 Star this repo to support me, but to support Aimmy's development donate to Babyhamsta via the sponsor link on the official Aimmy GitHub repo!
 
-**DO NOT ASK FOR HELP ON DISCORD. ONLY DM ME IF YOU WANNA ADD HOST SHIELD SUPPORT.**
+**DO NOT ASK FOR HELP ON DISCORD. ONLY DM ME IF YOU WANNA ADD HOST SHIELD SUPPORT BECAUSE I DON'T KNOW HOW AND DON'T HAVE A HOST SHIELD MYSELF.**
 
 Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fortnite Bot Undetected, Fortnite Arduino
 
