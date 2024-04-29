@@ -1,5 +1,4 @@
-﻿using Aimmy2.Class;
-using Aimmy2.MouseMovementLibraries.GHubSupport;
+using Aimmy2.Class;
 using Aimmy2.Other;
 using Aimmy2.UILibrary;
 using AimmyWPF.Class;
@@ -7,8 +6,6 @@ using Class;
 using Emgu.CV.Ocl;
 using InputLogic;
 using Microsoft.Win32;
-using MouseMovementLibraries.ddxoftSupport;
-using MouseMovementLibraries.RazerSupport;
 using MouseMovementLibraries.ArduinoSupport;
 using Other;
 using System.Diagnostics;
@@ -64,6 +61,7 @@ namespace Aimmy2
 
         #region Loading Window
 
+        public bool ArduinoLoaded = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -127,7 +125,13 @@ namespace Aimmy2
 
             ListenForKeybinds();
             LoadMenuMinimizers();
-        }
+
+            if (!ArduinoLoaded)
+            {
+                StartArduino.StartArduinoMouse();
+                ArduinoLoaded = true;
+            }
+}
 
         private async void LoadStoreMenuAsync()
         {
@@ -150,11 +154,6 @@ namespace Aimmy2
 
             FOVWindow.Close();
             DPWindow.Close();
-
-            if (Dictionary.dropdownState["Mouse Movement Method"] == "LG HUB")
-            {
-                LGMouse.Close();
-            }
 
             SaveDictionary.WriteJSON(Dictionary.sliderSettings);
             SaveDictionary.WriteJSON(Dictionary.minimizeState, "bin\\minimize.cfg");
@@ -214,7 +213,6 @@ namespace Aimmy2
 
         private string CurrentMenu = "AimMenu";
 
-        public bool ArduinoLoaded = false;
 
         private async void MenuSwitch(object sender, RoutedEventArgs e)
         {
@@ -272,10 +270,6 @@ namespace Aimmy2
             uiManager.D_MouseMovementMethod!.DropdownBox.SelectedIndex = Dictionary.dropdownState["Mouse Movement Method"] switch
             {
                 "Arduino" => 1,
-                "SendInput" => 2,
-                "LG HUB" => 3,
-                "Razer Synapse (Require Razer Peripheral)" => 4,
-                "ddxoft Virtual Input Driver" => 5,
                 _ => 0 // Default case if none of the above matches
             };
         }
@@ -784,46 +778,9 @@ namespace Aimmy2
             uiManager.T_CollectDataWhilePlaying = AddToggle(SettingsConfig, "Collect Data While Playing");
             uiManager.T_AutoLabelData = AddToggle(SettingsConfig, "Auto Label Data");
             uiManager.D_MouseMovementMethod = AddDropdown(SettingsConfig, "Mouse Movement Method");
-            AddDropdownItem(uiManager.D_MouseMovementMethod, "Mouse Event");
-            AddDropdownItem(uiManager.D_MouseMovementMethod, "SendInput");
 
             uiManager.DDI_Arduino = AddDropdownItem(uiManager.D_MouseMovementMethod, "Arduino");
 
-            uiManager.DDI_Arduino.Selected += (sender, e) =>
-            {
-                if (!ArduinoLoaded)
-                {
-                    StartArduino.StartArduinoMouse();
-                    ArduinoLoaded = true;
-                }
-            };
-
-            uiManager.DDI_LGHUB = AddDropdownItem(uiManager.D_MouseMovementMethod, "LG HUB");
-
-            uiManager.DDI_LGHUB.Selected += (sender, e) =>
-            {
-                if (!new LGHubMain().Load())
-                {
-                    SelectMouseEvent();
-                }
-            };
-
-            uiManager.DDI_RazerSynapse = AddDropdownItem(uiManager.D_MouseMovementMethod, "Razer Synapse (Require Razer Peripheral)");
-            uiManager.DDI_RazerSynapse.Selected += async (sender, e) =>
-            {
-                if (!await RZMouse.Load())
-                {
-                    SelectMouseEvent();
-                }
-            };
-            uiManager.DDI_ddxoft = AddDropdownItem(uiManager.D_MouseMovementMethod, "ddxoft Virtual Input Driver");
-            uiManager.DDI_ddxoft.Selected += async (sender, e) =>
-            {
-                if (!await DdxoftMain.Load())
-                {
-                    SelectMouseEvent();
-                }
-            };
             uiManager.S_AIMinimumConfidence = AddSlider(SettingsConfig, "AI Minimum Confidence", "% Confidence", 1, 1, 1, 100);
             uiManager.S_AIMinimumConfidence.Slider.PreviewMouseLeftButtonUp += (sender, e) =>
             {
@@ -839,10 +796,6 @@ namespace Aimmy2
 
             AddSeparator(SettingsConfig);
 
-            // ddxoft Menu
-            //AddTitle(SSP2, "ddxoft Configurator");
-            //uiManager.AFL_ddxoftDLLLocator = AddFileLocator(SSP2, "ddxoft DLL Location", "ddxoft dll (*.dll)|*.dll");
-            //AddSeparator(SSP2);
         }
 
         private void LoadCreditsMenu()
@@ -855,7 +808,6 @@ namespace Aimmy2
             AddCredit(CreditsPanel, "Shall0e", "Prediction Method");
             AddCredit(CreditsPanel, "wisethef0x", "EMA Prediction Method");
             AddCredit(CreditsPanel, "HakaCat", "Idea for Auto Labelling Data");
-            AddCredit(CreditsPanel, "Themida", "LGHub check");
             AddSeparator(CreditsPanel);
 
             AddTitle(CreditsPanel, "Model Creators");
