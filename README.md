@@ -3,7 +3,7 @@ Aimmy but with Arduino support!
 
 Star this repo to support me, but to support Aimmy's development donate to Babyhamsta via the sponsor link on the official Aimmy GitHub repo!
 
-**DO NOT ASK FOR HELP ON DISCORD. ONLY DM ME IF YOU WANNA ADD HOST SHIELD SUPPORT BECAUSE I DON'T KNOW HOW AND DON'T HAVE A HOST SHIELD MYSELF.**
+**DO NOT ASK FOR HELP ON DISCORD. DO NOT DM ME ON DISCORD AT ALL**
 
 Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fortnite Bot Undetected, Fortnite Arduino
 
@@ -14,7 +14,7 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 
 ## Limitations
 
-- **USB Host Shields:** Does not support USB Host Shields. Community contributions for this feature are welcome. Plug your mouse into your PC instead of the shield if you are using one.
+- **USB Host Shields:** Does not support USB Host Shields. If you know what you're doing then try this: https://www.unknowncheats.me/forum/valorant/642071-arduino-hid-mouse-free-libraries.html
 - **Chip Compatibility:** Specifically designed for Arduinos with an ATmega32U4 chip, such as the Leonardo R3. Other Arduinos might work by installing HoodLoader2 but the autospoofer won't work with those.
 
 ## Setup Tutorial
