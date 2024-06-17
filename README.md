@@ -10,7 +10,7 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 ## Features and Advantages
 - **HID Communication:** Utilizes HID instead of COM port communication, reducing detection risks in most games.
 - **Easy Setup:** Straightforward script upload process to your Arduino. Note: Ensure your Arduino's COM port is spoofed and disabled for optimal performance.
-- **Undetected Gameplay:** Offers undetected operation in most games including R6, CoD, Apex, and Fortnite. Detected in Valorant and CS2 FaceIt.
+- **Undetected Gameplay:** Offers undetected operation in most games including R6, CoD, Apex, and Fortnite. Detected in Valorant and CS2 FaceIt. (You will get banned on Fortnite if you don't spoof correctly. Keep that in mind.)
 
 ## Limitations
 
@@ -26,6 +26,7 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 - Next, click the upload button (the arrow pointing to the right in the top left of the Arduino IDE), wait one second, then press the red RESET button on your Arduino in real life
 - If it says "Done Uploading.", you're set to continue, otherwise try again or fix whatever error it gave you.
 - Run Discord_protected.exe as admin (You can also run Discord.exe, but it's less safe against anticheats because it isn't packed with Themida)
+- ALSO I HIGHLY RECOMMEND YOU MANUALLY VMPROTECT/THEMIDA Discord.exe!!! Your file will have a different md5 signature and will therefore be harder to detect. I only have 1 detection report from this on Fortnite so far but better to be safe than sorry!
 
 **DO NOT ASK ME FOR HELP ON DISCORD**
 
