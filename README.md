@@ -26,8 +26,8 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 - Next, click the upload button (the arrow pointing to the right in the top left of the Arduino IDE), wait one second, then press the red RESET button on your Arduino in real life
 - If it says "Done Uploading.", you're set to continue, otherwise try again or fix whatever error it gave you.
 - Run Discord_protected.exe as admin (You can also run Discord.exe, but it's less safe against anticheats because it isn't packed with Themida)
-- ALSO I HIGHLY RECOMMEND YOU MANUALLY VMPROTECT/THEMIDA Discord.exe!!! Your file will have a different md5 signature and will therefore be harder to detect. I only have 1 detection report from this on Fortnite so far but better to be safe than sorry!
-- ALSO SOLID BAN CHANCE ON BE/EAC IF YOU DON'T DISABLE COM PORT
+**- ALSO I HIGHLY RECOMMEND YOU MANUALLY VMPROTECT/THEMIDA Discord.exe!!! Your file will have a different md5 signature and will therefore be harder to detect. I only have 1 detection report from this on Fortnite so far but better to be safe than sorry!
+- ALSO SOLID BAN CHANCE ON BE/EAC IF YOU DON'T DISABLE COM PORT**
 
 **DO NOT ASK ME FOR HELP ON DISCORD**
 
