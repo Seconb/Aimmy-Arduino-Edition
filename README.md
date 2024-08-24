@@ -20,7 +20,7 @@ Tags: Arduino AI Aim, AI chair, AI Aim Assist, AI undetected, Undetected bot, Fo
 ## Setup Tutorial
 - [Video Tutorial](https://streamable.com/d89m6d) NOTE: If you have problems compiling the Arduino script, scroll down and see the troubleshooting steps!
 - Download and install [Arduino IDE 1.8.19](https://downloads.arduino.cc/arduino-1.8.19-windows.exe)
-- Download [Aimmy Arduino Edition Download](https://github.com/Seconb/Aimmy-Arduino-Edition/releases/tag/v3) and extract it
+- Download [Aimmy Arduino Edition Download](https://github.com/Seconb/Aimmy-Arduino-Edition/releases/tag/v4) and extract it
 - Run arduinospoofer.exe **AS ADMIN**
 - Once that finishes, open MouseInstructArduino.ino
 - Next, click the upload button (the arrow pointing to the right in the top left of the Arduino IDE), wait one second, then press the red RESET button on your Arduino in real life
