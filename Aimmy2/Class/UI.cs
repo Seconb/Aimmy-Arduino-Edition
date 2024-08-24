@@ -1,4 +1,4 @@
-﻿using Aimmy2.UILibrary;
+using Aimmy2.UILibrary;
 using System.Windows.Controls;
 using UILibrary;
 
@@ -14,6 +14,7 @@ namespace Class
         public AKeyChanger? C_Keybind { get; set; }
         public AToggle? T_ConstantAITracking { get; set; }
         public AToggle? T_Predictions { get; set; }
+        public AToggle? T_EMASmoothing { get; set; }
         public AKeyChanger? C_EmergencyKeybind { get; set; }
         public AToggle? T_EnableModelSwitchKeybind { get; set; }
         public AKeyChanger? C_ModelSwitchKeybind { get; set; }
@@ -29,7 +30,10 @@ namespace Class
         public ASlider? S_MouseSensitivity { get; set; }
         public ASlider? S_MouseJitter { get; set; }
         public ASlider? S_YOffset { get; set; }
+        public ASlider? S_YOffsetPercent { get; set; }
         public ASlider? S_XOffset { get; set; }
+        public ASlider? S_XOffsetPercent { get; set; }
+        public ASlider? S_EMASmoothing { get; set; }
 
         // Triggerbot
         public ATitle? AT_TriggerBot { get; set; }
@@ -90,20 +94,20 @@ namespace Class
 
         // Settings UI
         public ATitle? AT_SettingsMenu { get; set; }
-
         public AToggle? T_CollectDataWhilePlaying { get; set; }
-
         public AToggle? T_AutoLabelData { get; set; }
         public ADropdown? D_MouseMovementMethod { get; set; }
-        public ComboBoxItem? DDI_LGHUB { get; set; }
-        public ComboBoxItem? DDI_RazerSynapse { get; set; }
-        public ComboBoxItem? DDI_ddxoft { get; set; }
         public ComboBoxItem? DDI_Arduino { get; set; }
         public ASlider? S_AIMinimumConfidence { get; set; }
         public AToggle? T_MouseBackgroundEffect { get; set; }
         public AToggle? T_UITopMost { get; set; }
         public APButton? B_SaveConfig { get; set; }
         public APButton? B_Debug { get; set; }
+
+        // X/Y Percentage Adjustment Enabler
+        public ATitle? AT_XYPercentageAdjustmentEnabler { get; set; }
+        public AToggle? T_XAxisPercentageAdjustment { get; set; }
+        public AToggle? T_YAxisPercentageAdjustment { get; set; }
 
         // ddxoft UI
         public AFileLocator? AFL_ddxoftDLLLocator { get; set; }
