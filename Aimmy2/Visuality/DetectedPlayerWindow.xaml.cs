@@ -1,4 +1,4 @@
-﻿using Aimmy2.Class;
+using Aimmy2.Class;
 using Class;
 using System.Windows;
 using System.Windows.Interop;
@@ -17,6 +17,7 @@ namespace Visuality
             base.OnSourceInitialized(e);
             ClickThroughOverlay.MakeClickThrough(new WindowInteropHelper(this).Handle);
         }
+
         public DetectedPlayerWindow()
         {
             InitializeComponent();
