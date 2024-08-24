@@ -3,24 +3,19 @@ using Aimmy2.Other;
 using Aimmy2.UILibrary;
 using AimmyWPF.Class;
 using Class;
-using Emgu.CV.Ocl;
 using InputLogic;
 using Microsoft.Win32;
 using MouseMovementLibraries.ArduinoSupport;
 using Other;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using UILibrary;
 using Visuality;
-using static Aimmy2.Other.GithubManager;
 using Application = System.Windows.Application;
-using AimmyWPF;
-using System;
 
 namespace Aimmy2
 {
@@ -42,6 +37,9 @@ namespace Aimmy2
         private bool CurrentlySwitching;
         private ScrollViewer? CurrentScrollViewer;
 
+        private HashSet<string> AvailableModels = new();
+        private HashSet<string> AvailableConfigs = new();
+
         private static double ActualFOV = 640;
 
         public static string GenerateRandomString(int length)
@@ -57,17 +55,25 @@ namespace Aimmy2
             return new String(stringChars);
         }
 
+        public bool ArduinoLoaded = false;
+
         #endregion Main Variables
 
         #region Loading Window
 
-        public bool ArduinoLoaded = false;
         public MainWindow()
         {
             InitializeComponent();
             this.Title = GenerateRandomString(8);
-
-            if (Directory.GetCurrentDirectory().Contains("Temp")) MessageBox.Show("Hi, it is made aware that you are running Aimmy without extracting it from the zip file. Please extract Aimmy from the zip file or Aimmy will not be able to run properly.\n\nThank you.","Aimmy V2");
+            if (Directory.GetCurrentDirectory().Contains("Temp"))
+            {
+                MessageBox.Show(
+                    "Hi, it is made aware that you are running Aimmy without extracting it from the zip file." +
+                    " Please extract Aimmy from the zip file or Aimmy will not be able to run properly." +
+                    "\n\nThank you.",
+                    "Aimmy V2"
+                    );
+            }
 
             CurrentScrollViewer = FindName("AimMenu") as ScrollViewer;
             if (CurrentScrollViewer == null) throw new NullReferenceException("CurrentScrollViewer is null");
@@ -76,7 +82,6 @@ namespace Aimmy2
             Dictionary.FOVWindow = FOVWindow;
 
             fileManager = new FileManager(ModelListBox, SelectedModelNotifier, ConfigsListBox, SelectedConfigNotifier);
-            //fileManager.RetrieveAndAddFiles();
 
             // Needed to import annotations into MakeSense
             if (!File.Exists("bin\\labels\\labels.txt")) { File.WriteAllText("bin\\labels\\labels.txt", "Enemy"); }
@@ -90,10 +95,10 @@ namespace Aimmy2
             SaveDictionary.LoadJSON(Dictionary.bindingSettings, "bin\\binding.cfg");
             SaveDictionary.LoadJSON(Dictionary.colorState, "bin\\colors.cfg");
             SaveDictionary.LoadJSON(Dictionary.filelocationState, "bin\\filelocations.cfg");
-            SaveDictionary.LoadJSON(Dictionary.repoList, "bin\\repoList.cfg", false);
 
             bindingManager = new InputBindingManager();
             bindingManager.SetupDefault("Aim Keybind", Dictionary.bindingSettings["Aim Keybind"]);
+            bindingManager.SetupDefault("Second Aim Keybind", Dictionary.bindingSettings["Second Aim Keybind"]);
             bindingManager.SetupDefault("Dynamic FOV Keybind", Dictionary.bindingSettings["Dynamic FOV Keybind"]);
             bindingManager.SetupDefault("Emergency Stop Keybind", Dictionary.bindingSettings["Emergency Stop Keybind"]);
             bindingManager.SetupDefault("Model Switch Keybind", Dictionary.bindingSettings["Model Switch Keybind"]);
@@ -131,12 +136,9 @@ namespace Aimmy2
                 StartArduino.StartArduinoMouse();
                 ArduinoLoaded = true;
             }
-}
-
-        private async void LoadStoreMenuAsync()
-        {
-            await LoadStoreMenu();
         }
+
+        private async void LoadStoreMenuAsync() => await LoadStoreMenu();
 
         private void Window_Loaded(object sender, RoutedEventArgs e) => AboutSpecs.Content = $"{GetProcessorName()} • {GetVideoControllerName()} • {GetFormattedMemorySize()}GB RAM";
 
@@ -155,6 +157,7 @@ namespace Aimmy2
             FOVWindow.Close();
             DPWindow.Close();
 
+
             SaveDictionary.WriteJSON(Dictionary.sliderSettings);
             SaveDictionary.WriteJSON(Dictionary.minimizeState, "bin\\minimize.cfg");
             SaveDictionary.WriteJSON(Dictionary.bindingSettings, "bin\\binding.cfg");
@@ -162,7 +165,6 @@ namespace Aimmy2
             SaveDictionary.WriteJSON(Dictionary.colorState, "bin\\colors.cfg");
             SaveDictionary.WriteJSON(Dictionary.filelocationState, "bin\\filelocations.cfg");
             SaveDictionary.WriteJSON(Dictionary.AntiRecoilSettings, "bin\\anti_recoil_configs\\Default.cfg");
-            SaveDictionary.WriteJSON(Dictionary.repoList, "bin\\repoList.cfg");
 
             FileManager.AIManager?.Dispose();
 
@@ -174,45 +176,11 @@ namespace Aimmy2
             Application.Current.Shutdown();
         }
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            string searchText = textBox.Text.ToLower();
-
-            foreach (ADownloadGateway item in ModelStoreScroller.Children)
-            {
-                if (item.Title.Content.ToString().Contains(searchText, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    item.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    item.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void Main_Background_Gradient(object sender, MouseEventArgs e)
-        {
-            if (Dictionary.toggleState["Mouse Background Effect"])
-            {
-                var mousePosition = WinAPICaller.GetCursorPosition();
-                var translatedMousePos = PointFromScreen(new Point(mousePosition.X, mousePosition.Y));
-
-                double targetAngle = Math.Atan2(translatedMousePos.Y - (MainBorder.ActualHeight / 2), translatedMousePos.X - (MainBorder.ActualWidth / 2)) * (180 / Math.PI);
-
-                double angleDifference = CalculateAngleDifference(targetAngle, 360, 180, 1);
-                currentGradientAngle = (currentGradientAngle + angleDifference + 360) % 360;
-                RotaryGradient.Angle = currentGradientAngle;
-            }
-        }
-
         #endregion Loading Window
 
         #region Menu Logic
 
         private string CurrentMenu = "AimMenu";
-
 
         private async void MenuSwitch(object sender, RoutedEventArgs e)
         {
@@ -238,6 +206,43 @@ namespace Aimmy2
             CurrentScrollViewer.Visibility = Visibility.Collapsed;
             CurrentScrollViewer = MovingScrollViewer;
             CurrentlySwitching = false;
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateVisibilityBasedOnSearchText((TextBox)sender, ModelStoreScroller);
+        }
+
+        private void CSearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateVisibilityBasedOnSearchText((TextBox)sender, ConfigStoreScroller);
+        }
+
+        private void UpdateVisibilityBasedOnSearchText(TextBox textBox, Panel panel)
+        {
+            string searchText = textBox.Text.ToLower();
+
+            foreach (ADownloadGateway item in panel.Children.OfType<ADownloadGateway>())
+            {
+                item.Visibility = item.Title.Content.ToString()?.ToLower().Contains(searchText) == true
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+        }
+
+        private void Main_Background_Gradient(object sender, MouseEventArgs e)
+        {
+            if (Dictionary.toggleState["Mouse Background Effect"])
+            {
+                var mousePosition = WinAPICaller.GetCursorPosition();
+                var translatedMousePos = PointFromScreen(new Point(mousePosition.X, mousePosition.Y));
+
+                double targetAngle = Math.Atan2(translatedMousePos.Y - (MainBorder.ActualHeight * 0.5), translatedMousePos.X - (MainBorder.ActualWidth * 0.5)) * (180 / Math.PI);
+
+                double angleDifference = CalculateAngleDifference(targetAngle, 360, 180, 1);
+                currentGradientAngle = (currentGradientAngle + angleDifference + 360) % 360;
+                RotaryGradient.Angle = currentGradientAngle;
+            }
         }
 
         private void LoadDropdownStates()
@@ -266,12 +271,7 @@ namespace Aimmy2
                 _ => 0 // Default case if none of the above matches
             };
 
-            // Mouse Movement Method Dropdown
-            uiManager.D_MouseMovementMethod!.DropdownBox.SelectedIndex = Dictionary.dropdownState["Mouse Movement Method"] switch
-            {
-                "Arduino" => 1,
-                _ => 0 // Default case if none of the above matches
-            };
+            uiManager.D_MouseMovementMethod!.DropdownBox.SelectedIndex = 0;
         }
 
         private AToggle AddToggle(StackPanel panel, string title)
@@ -324,11 +324,7 @@ namespace Aimmy2
                     break;
 
                 case "Show AI Confidence":
-                    if (!Dictionary.toggleState[title])
-                    {
-                        DPWindow.DetectedPlayerConfidence.Margin = new Thickness(0, 0, 0, 0);
-                        DPWindow.DetectedPlayerConfidence.Width = 0;
-                    }
+                    DPWindow.DetectedPlayerConfidence.Visibility = Dictionary.toggleState[title] ? Visibility.Visible : Visibility.Collapsed;
                     break;
 
                 case "Mouse Background Effect":
@@ -337,6 +333,11 @@ namespace Aimmy2
 
                 case "UI TopMost":
                     Topmost = Dictionary.toggleState[title];
+                    break;
+
+                case "EMA Smoothening":
+                    MouseManager.IsEMASmoothingEnabled = Dictionary.toggleState[title];
+                    Debug.WriteLine(MouseManager.IsEMASmoothingEnabled);
                     break;
             }
         }
@@ -578,6 +579,7 @@ namespace Aimmy2
                 }
             };
             uiManager.C_Keybind = AddKeyChanger(AimAssist, "Aim Keybind", Dictionary.bindingSettings["Aim Keybind"]);
+            uiManager.C_Keybind = AddKeyChanger(AimAssist, "Second Aim Keybind", Dictionary.bindingSettings["Second Aim Keybind"]);
             uiManager.T_ConstantAITracking = AddToggle(AimAssist, "Constant AI Tracking");
             uiManager.T_ConstantAITracking.Reader.Click += (s, e) =>
             {
@@ -593,6 +595,7 @@ namespace Aimmy2
                 }
             };
             uiManager.T_Predictions = AddToggle(AimAssist, "Predictions");
+            uiManager.T_EMASmoothing = AddToggle(AimAssist, "EMA Smoothening");
             uiManager.C_EmergencyKeybind = AddKeyChanger(AimAssist, "Emergency Stop Keybind", Dictionary.bindingSettings["Emergency Stop Keybind"]);
             uiManager.T_EnableModelSwitchKeybind = AddToggle(AimAssist, "Enable Model Switch Keybind");
             uiManager.C_ModelSwitchKeybind = AddKeyChanger(AimAssist, "Model Switch Keybind", Dictionary.bindingSettings["Model Switch Keybind"]);
@@ -636,8 +639,15 @@ namespace Aimmy2
                 else if (uiManager.S_MouseSensitivity.Slider.Value <= 0.1) new NoticeBar("The Mouse Sensitivity you have set can cause Aimmy to be unstable to aim, please increase if you suffer from this problem", 10000).Show();
             };
             uiManager.S_MouseJitter = AddSlider(AimConfig, "Mouse Jitter", "Jitter", 1, 1, 0, 15);
+
             uiManager.S_YOffset = AddSlider(AimConfig, "Y Offset (Up/Down)", "Offset", 1, 1, -150, 150);
+            uiManager.S_YOffsetPercent = AddSlider(AimConfig, "Y Offset (%)", "Percent", 1, 1, 0, 100);
+
             uiManager.S_XOffset = AddSlider(AimConfig, "X Offset (Left/Right)", "Offset", 1, 1, -150, 150);
+            uiManager.S_XOffsetPercent = AddSlider(AimConfig, "X Offset (%)", "Percent", 1, 1, 0, 100);
+
+            uiManager.S_EMASmoothing = AddSlider(AimConfig, "EMA Smoothening", "Amount", 0.01, 0.01, 0.01, 1);
+
             AddSeparator(AimConfig);
 
             #endregion Config
@@ -731,6 +741,14 @@ namespace Aimmy2
                     PropertyChanger.PostNewFOVSize(uiManager.S_DynamicFOVSize.Slider.Value);
                 }
             };
+            uiManager.S_EMASmoothing.Slider.ValueChanged += (s, x) =>
+            {
+                if (Dictionary.toggleState["EMA Smoothening"])
+                {
+                    MouseManager.smoothingFactor = uiManager.S_EMASmoothing.Slider.Value;
+                    Debug.WriteLine(MouseManager.smoothingFactor);
+                }
+            };
             AddSeparator(FOVConfig);
 
             #endregion FOV Config
@@ -764,7 +782,6 @@ namespace Aimmy2
             uiManager.S_DPBorderThickness.Slider.ValueChanged += (s, x) => PropertyChanger.PostDPWBorderThickness(uiManager.S_DPBorderThickness.Slider.Value);
 
             uiManager.S_DPOpacity = AddSlider(ESPConfig, "Opacity", "Opacity", 0.1, 0.1, 0, 1);
-            uiManager.S_DPOpacity.Slider.ValueChanged += (s, x) => PropertyChanger.PostDPWOpacity(uiManager.S_DPOpacity.Slider.Value);
 
             AddSeparator(ESPConfig);
 
@@ -791,11 +808,19 @@ namespace Aimmy2
             uiManager.T_UITopMost = AddToggle(SettingsConfig, "UI TopMost");
             uiManager.B_SaveConfig = AddButton(SettingsConfig, "Save Config");
             uiManager.B_SaveConfig.Reader.Click += (s, e) => new ConfigSaver().ShowDialog();
-            uiManager.B_RepoManager = AddButton(SettingsConfig, "Repository Manager");
-            uiManager.B_RepoManager.Reader.Click += (s, e) => new RepoManager().Show();
 
             AddSeparator(SettingsConfig);
 
+            // X/Y Percentage Adjustment Toggles
+            uiManager.AT_XYPercentageAdjustmentEnabler = AddTitle(XYPercentageEnablerMenu, "X/Y Percentage Adjustment", true);
+            uiManager.T_XAxisPercentageAdjustment = AddToggle(XYPercentageEnablerMenu, "X Axis Percentage Adjustment");
+            uiManager.T_YAxisPercentageAdjustment = AddToggle(XYPercentageEnablerMenu, "Y Axis Percentage Adjustment");
+            AddSeparator(XYPercentageEnablerMenu);
+
+            // ddxoft Menu
+            //AddTitle(SSP2, "ddxoft Configurator");
+            //uiManager.AFL_ddxoftDLLLocator = AddFileLocator(SSP2, "ddxoft DLL Location", "ddxoft dll (*.dll)|*.dll");
+            //AddSeparator(SSP2);
         }
 
         private void LoadCreditsMenu()
@@ -804,10 +829,16 @@ namespace Aimmy2
             AddCredit(CreditsPanel, "Babyhamsta", "AI Logic");
             AddCredit(CreditsPanel, "MarsQQ", "Design");
             AddCredit(CreditsPanel, "Taylor", "Optimization, Cleanup");
-            AddCredit(CreditsPanel, "Ninja", "MarsQQ's emotional support");
+            AddSeparator(CreditsPanel);
+
+            AddTitle(CreditsPanel, "Contributors");
             AddCredit(CreditsPanel, "Shall0e", "Prediction Method");
             AddCredit(CreditsPanel, "wisethef0x", "EMA Prediction Method");
+            AddCredit(CreditsPanel, "whoswhip", "Bug fixes & EMA");
             AddCredit(CreditsPanel, "HakaCat", "Idea for Auto Labelling Data");
+            AddCredit(CreditsPanel, "Themida", "LGHub check");
+            AddCredit(CreditsPanel, "Ninja", "MarsQQ's emotional support");
+            AddCredit(CreditsPanel, "Seconb", "Arduino Support");
             AddSeparator(CreditsPanel);
 
             AddTitle(CreditsPanel, "Model Creators");
@@ -822,60 +853,44 @@ namespace Aimmy2
         {
             try
             {
-                var list = await FileManager.RetrieveAndAddFiles();
+                Task models = FileManager.RetrieveAndAddFiles("https://api.github.com/repos/Babyhamsta/Aimmy/contents/models", "bin\\models", AvailableModels);
+                Task configs = FileManager.RetrieveAndAddFiles("https://api.github.com/repos/Babyhamsta/Aimmy/contents/configs", "bin\\configs", AvailableConfigs);
 
-                if (list.Count == 0)
-                {
-                    LackOfConfigsText.Visibility = Visibility.Visible;
-                    LackOfModelsText.Visibility = Visibility.Visible;
-                    return;
-                }
-
-                DownloadGateway(list);
+                await Task.WhenAll(models, configs);
             }
             catch (Exception e)
             {
                 new NoticeBar(e.Message, 10000).Show();
-
-                LackOfConfigsText.Visibility = Visibility.Visible;
-                LackOfModelsText.Visibility = Visibility.Visible;
-
                 return;
             }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                DownloadGateway(ModelStoreScroller, AvailableModels, "models");
+                DownloadGateway(ConfigStoreScroller, AvailableConfigs, "configs");
+            });
         }
 
-        private void DownloadGateway(Dictionary<string, GitHubFile> entries)
+        private void DownloadGateway(StackPanel Scroller, HashSet<string> entries, string folder)
         {
-            ModelStoreScroller.Children.Clear();
-            ConfigStoreScroller.Children.Clear();
-
-            var modelSHA = GetLocalFileShas("bin\\models");
-            var configSHA = GetLocalFileShas("bin\\configs");
-
-            foreach (var entry in entries)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                if (entry.Value == null)
+                Scroller.Children.Clear();
+
+                if (entries.Count > 0)
                 {
-                    continue;
+                    foreach (var entry in entries)
+                    {
+                        ADownloadGateway gateway = new(entry, folder);
+                        Scroller.Children.Add(gateway);
+                    }
                 }
-
-                GitHubFile file = entry.Value;
-
-                if (modelSHA.ContainsValue(file.sha ?? "") || configSHA.ContainsValue(file.sha ?? ""))
+                else
                 {
-                    continue;
+                    LackOfConfigsText.Visibility = Visibility.Visible;
+                    LackOfModelsText.Visibility = Visibility.Visible;
                 }
-
-                string RepoLink = entry.Value.download_url!;
-
-                Application.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    StackPanel targetPanel = file.name.Contains(".onnx") ? ModelStoreScroller : ConfigStoreScroller;
-                    ADownloadGateway gateway = new ADownloadGateway(RepoLink, file.name, file.name.Contains(".onnx") ? "models" : "configs");
-
-                    targetPanel.Children.Add(gateway);
-                });
-            }
+            });
         }
 
         #endregion Menu Loading
@@ -898,6 +913,8 @@ namespace Aimmy2
 
         private void ToggleSettingsMenu() => SetMenuVisibility(SettingsConfig, !Dictionary.minimizeState["Settings Menu"]);
 
+        private void ToggleXYPercentageAdjustmentEnabler() => SetMenuVisibility(XYPercentageEnablerMenu, !Dictionary.minimizeState["X/Y Percentage Adjustment"]);
+
         private void LoadMenuMinimizers()
         {
             ToggleAimMenu();
@@ -908,6 +925,7 @@ namespace Aimmy2
             ToggleFOVConfigMenu();
             ToggleESPConfigMenu();
             ToggleSettingsMenu();
+            ToggleXYPercentageAdjustmentEnabler();
 
             uiManager.AT_Aim.Minimize.Click += (s, e) => ToggleAimMenu();
 
@@ -924,6 +942,8 @@ namespace Aimmy2
             uiManager.AT_DetectedPlayer.Minimize.Click += (s, e) => ToggleESPConfigMenu();
 
             uiManager.AT_SettingsMenu.Minimize.Click += (s, e) => ToggleSettingsMenu();
+
+            uiManager.AT_XYPercentageAdjustmentEnabler.Minimize.Click += (s, e) => ToggleXYPercentageAdjustmentEnabler();
         }
 
         private static void SetMenuVisibility(StackPanel panel, bool isVisible)
@@ -969,6 +989,9 @@ namespace Aimmy2
 
                     uiManager.S_YOffset!.Slider.Value = MainWindow.GetValueOrDefault(Dictionary.sliderSettings, "Y Offset (Up/Down)", 0);
                     uiManager.S_XOffset!.Slider.Value = MainWindow.GetValueOrDefault(Dictionary.sliderSettings, "X Offset (Left/Right)", 0);
+
+                    uiManager.S_YOffsetPercent!.Slider.Value = MainWindow.GetValueOrDefault(Dictionary.sliderSettings, "Y Offset (%)", 0);
+                    uiManager.S_XOffsetPercent!.Slider.Value = MainWindow.GetValueOrDefault(Dictionary.sliderSettings, "X Offset (%)", 0);
 
                     uiManager.S_AutoTriggerDelay!.Slider.Value = MainWindow.GetValueOrDefault(Dictionary.sliderSettings, "Auto Trigger Delay", .25);
                     uiManager.S_AIMinimumConfidence!.Slider.Value = MainWindow.GetValueOrDefault(Dictionary.sliderSettings, "AI Minimum Confidence", 50);
@@ -1021,19 +1044,11 @@ namespace Aimmy2
         {
             if (sender is Button clickedButton)
             {
-                new Process
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        WindowStyle = ProcessWindowStyle.Normal,
-                        FileName = "explorer.exe",
-                        Arguments = "bin\\" + clickedButton.Tag.ToString(),
-                        WorkingDirectory = Directory.GetCurrentDirectory()
-                    }
-                }.Start();
+                Process.Start("explorer.exe", Directory.GetCurrentDirectory() + "bin\\" + clickedButton.Tag.ToString());
             }
         }
-        #endregion
+
+        #endregion Open Folder
 
         #region Menu Functions
 
@@ -1061,11 +1076,11 @@ namespace Aimmy2
 
         #region System Information
 
-        private string? GetProcessorName() => GetSpecs.GetSpecification("Win32_Processor", "Name");
+        private static string? GetProcessorName() => GetSpecs.GetSpecification("Win32_Processor", "Name");
 
-        private string? GetVideoControllerName() => GetSpecs.GetSpecification("Win32_VideoController", "Name");
+        private static string? GetVideoControllerName() => GetSpecs.GetSpecification("Win32_VideoController", "Name");
 
-        private string? GetFormattedMemorySize()
+        private static string? GetFormattedMemorySize()
         {
             long totalMemorySize = long.Parse(GetSpecs.GetSpecification("CIM_OperatingSystem", "TotalVisibleMemorySize")!);
             return Math.Round(totalMemorySize / (1024.0 * 1024.0), 0).ToString();
@@ -1080,7 +1095,7 @@ namespace Aimmy2
         private double CalculateAngleDifference(double targetAngle, double fullCircle, double halfCircle, double clamp)
         {
             double angleDifference = (targetAngle - currentGradientAngle + fullCircle) % fullCircle;
-            if (angleDifference > halfCircle) angleDifference -= fullCircle;
+            if (angleDifference > halfCircle) { angleDifference -= fullCircle; }
             return Math.Max(Math.Min(angleDifference, clamp), -clamp);
         }
 
@@ -1090,18 +1105,17 @@ namespace Aimmy2
 
         private static void ShowHideDPWindow()
         {
-            if (!Dictionary.toggleState["Show Detected Player"]) DPWindow.Hide();
-            else DPWindow.Show();
+            if (!Dictionary.toggleState["Show Detected Player"]) { DPWindow.Hide(); }
+            else { DPWindow.Show(); }
         }
 
         private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
             UpdateManager updateManager = new UpdateManager();
-            await updateManager.CheckForUpdate("2.1.1");
+            await updateManager.CheckForUpdate("v2.2.0");
             updateManager.Dispose();
         }
 
         #endregion Window Handling
-
     }
 }
