@@ -1,4 +1,3 @@
-﻿using System.Diagnostics;
 using System.Windows.Input;
 
 namespace Other
@@ -28,6 +27,7 @@ namespace Other
             { "LShiftKey", "Left Shift" },
 
             { "Oem4", "Left Bracket"},
+            { "OemOpenBrackets", "Left Bracket"},
             { "Oem6", "Right Bracket"},
             { "Oem1", ";"},
             { "Oem3", "`" },
