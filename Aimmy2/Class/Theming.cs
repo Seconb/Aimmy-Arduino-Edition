@@ -1,7 +1,6 @@
-﻿namespace Class
+namespace Class
 {
     public class Theming
     {
-
     }
 }
