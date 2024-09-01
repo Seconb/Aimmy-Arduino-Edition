@@ -33,6 +33,7 @@ Aimmy but with Arduino support!
 10. Run `Discord THEMIDA.exe` as admin (protected with Themida, open `Discord.exe` for the non-protected version)
 
 **DO NOT ASK ME FOR HELP ON DISCORD**
+**DO NOT USE VISUALS ON FORTNITE**
 
 ## Troubleshooting
 - **Compilation Issues:** If the Arduino script doesn't compile, double check that you're NOT using the Windows Store version of Arduino IDE and you are using the one from the link in the setup tutorial.
