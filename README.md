@@ -38,7 +38,7 @@ Aimmy but with Arduino support!
 ## Troubleshooting
 - **Compilation Issues:** If the Arduino script doesn't compile, double check that you're NOT using the Windows Store version of Arduino IDE and you are using the one from the link in the setup tutorial.
 - **"Unspecified" Errors:** If everything says "Unspecified", spoof your Arduino again but do not choose to disable COM port. Then, upload `MouseInstructArduino` again. It should work now but it's more likely to get detected in some games in the future. This is unfortunately the only known fix.
-- **Missing Directories:** If you get `No Such Directory "HID-Settings.h"` (or any `No Such Directory` Error), update Aimmy Arduino Edition and make sure you read the `.txt` file in `MouseInstructArduino`.
+- **Missing Directories:** If you get `No Such Directory "HID-Settings.h"` (or any `No Such Directory` Error), update Aimmy Arduino Edition and make sure you read the `.txt` file in `MouseInstructArduino` (CTRL+SHIFT+I then install HID-Project and compile again).
 - **Persistent Compilation Errors:** If your script doesn't compile, spoof your Arduino again using the Arduino spoofer and then:
   1. Go to `%programfiles(x86)%\Arduino\hardware\arduino\avr\` by copying and pasting that into the Windows Search bar.
   2. Copy the `boards.txt` from there to `%localappdata%\Arduino15\packages\arduino\hardware\avr\1.8.6` by copying and pasting it into the Windows Search bar.
