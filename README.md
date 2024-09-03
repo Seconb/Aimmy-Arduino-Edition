@@ -14,7 +14,7 @@ Aimmy but with Arduino support!
 ## Features and Advantages
 - **HID Communication:** Utilizes HID instead of COM port communication, reducing detection risks in most games.
 - **Easy Setup:** Straightforward script upload process to your Arduino. Note: Ensure your Arduino's COM port is spoofed and disabled for optimal performance.
-- **Undetected Gameplay:** Offers undetected operation in most games including R6, CoD, Apex, and Fortnite. Detected in Valorant and CS2 FaceIt.
+- **Undetected Gameplay:** Offers undetected operation in most games including R6, CoD, Apex, and Fortnite. Detected in Valorant and CS2 FaceIt. (FORTNITE IS HIGH RISK, USING VISUALS GUARANTEES A BAN)
 
 ## Limitations
 - **USB Host Shields:** Does not support USB Host Shields. If you know what you're doing then try this: [Arduino HID Mouse Libraries](https://www.unknowncheats.me/forum/valorant/642071-arduino-hid-mouse-free-libraries.html)
