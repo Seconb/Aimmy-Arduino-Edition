@@ -32,6 +32,7 @@ Aimmy but with Arduino support!
 ```
 
 ## Setup Tutorial
+0. Before Arduino Setup, make sure you have WMIC (Windows 11 Users only): https://techcommunity.microsoft.com/blog/windows-itpro-blog/how-to-install-wmic-feature-on-demand-on-windows-11/4189530
 [![Video Tutorial](https://img.youtube.com/vi/1aRrjKzYCG0/0.jpg)](https://www.youtube.com/watch?v=1aRrjKzYCG0)
 1. Go to the Arduino Setup folder, and run the **Arduino Setup.bat**.
 2. Type **y** if you're using your USB Host Shield (you don't have to use it, detection in games won't change). If not, type **n**.
