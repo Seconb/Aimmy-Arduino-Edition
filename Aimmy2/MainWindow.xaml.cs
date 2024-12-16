@@ -1,14 +1,11 @@
 using Aimmy2.AILogic;
 using Aimmy2.Class;
-using Aimmy2.MouseMovementLibraries.GHubSupport;
 using Aimmy2.Other;
 using Aimmy2.UILibrary;
 using AimmyWPF.Class;
 using Class;
 using InputLogic;
 using Microsoft.Win32;
-using MouseMovementLibraries.ddxoftSupport;
-using MouseMovementLibraries.RazerSupport;
 using MouseMovementLibraries.ArduinoSupport;
 using Other;
 using System.Diagnostics;
@@ -140,11 +137,6 @@ namespace Aimmy2
             FOVWindow.Close();
             DPWindow.Close();
 
-            if (Dictionary.dropdownState["Mouse Movement Method"] == "LG HUB")
-            {
-                LGMouse.Close();
-            }
-
             SaveDictionary.WriteJSON(Dictionary.sliderSettings);
             SaveDictionary.WriteJSON(Dictionary.minimizeState, "bin\\minimize.cfg");
             SaveDictionary.WriteJSON(Dictionary.bindingSettings, "bin\\binding.cfg");
@@ -250,10 +242,7 @@ namespace Aimmy2
             // Mouse Movement Method Dropdown
             uiManager.D_MouseMovementMethod!.DropdownBox.SelectedIndex = Dictionary.dropdownState["Mouse Movement Method"] switch
             {
-                "SendInput" => 1,
-                "LG HUB" => 2,
-                "Razer Synapse (Require Razer Peripheral)" => 3,
-                "ddxoft Virtual Input Driver" => 4,
+                "Arduino" => 1,
                 _ => 0 // Default case if none of the above matches
             };
         }
@@ -787,35 +776,8 @@ namespace Aimmy2
             uiManager.AT_SettingsMenu = AddTitle(SettingsConfig, "Settings Menu", true);
 
             uiManager.D_MouseMovementMethod = AddDropdown(SettingsConfig, "Mouse Movement Method");
-            AddDropdownItem(uiManager.D_MouseMovementMethod, "Mouse Event");
-            AddDropdownItem(uiManager.D_MouseMovementMethod, "SendInput");
             AddDropdownItem(uiManager.D_MouseMovementMethod, "Arduino");
-            uiManager.DDI_LGHUB = AddDropdownItem(uiManager.D_MouseMovementMethod, "LG HUB");
 
-            uiManager.DDI_LGHUB.Selected += (sender, e) =>
-            {
-                if (!new LGHubMain().Load())
-                {
-                    SelectMouseEvent();
-                }
-            };
-
-            uiManager.DDI_RazerSynapse = AddDropdownItem(uiManager.D_MouseMovementMethod, "Razer Synapse (Require Razer Peripheral)");
-            uiManager.DDI_RazerSynapse.Selected += async (sender, e) =>
-            {
-                if (!await RZMouse.Load())
-                {
-                    SelectMouseEvent();
-                }
-            };
-            uiManager.DDI_ddxoft = AddDropdownItem(uiManager.D_MouseMovementMethod, "ddxoft Virtual Input Driver");
-            uiManager.DDI_ddxoft.Selected += async (sender, e) =>
-            {
-                if (!await DdxoftMain.Load())
-                {
-                    SelectMouseEvent();
-                }
-            };
             uiManager.S_AIMinimumConfidence.Slider.PreviewMouseLeftButtonUp += (sender, e) =>
             {
                 if (uiManager.S_AIMinimumConfidence.Slider.Value >= 95) new NoticeBar("The minimum confidence you have set for Aimmy to be too high and may be unable to detect players.", 10000).Show();
@@ -839,10 +801,6 @@ namespace Aimmy2
 
             AddSeparator(XYPercentageEnablerMenu);
 
-            // ddxoft Menu
-            //AddTitle(SSP2, "ddxoft Configurator");
-            //uiManager.AFL_ddxoftDLLLocator = AddFileLocator(SSP2, "ddxoft DLL Location", "ddxoft dll (*.dll)|*.dll");
-            //AddSeparator(SSP2);
         }
 
         private void LoadCreditsMenu()
@@ -858,7 +816,6 @@ namespace Aimmy2
             AddCredit(CreditsPanel, "wisethef0x", "EMA Prediction Method");
             AddCredit(CreditsPanel, "whoswhip", "Bug fixes & EMA");
             AddCredit(CreditsPanel, "HakaCat", "Idea for Auto Labelling Data");
-            AddCredit(CreditsPanel, "Themida", "LGHub check");
             AddCredit(CreditsPanel, "Ninja", "MarsQQ's emotional support");
             AddSeparator(CreditsPanel);
 
