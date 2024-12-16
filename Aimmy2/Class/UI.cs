@@ -1,4 +1,4 @@
-﻿using Aimmy2.UILibrary;
+using Aimmy2.UILibrary;
 using System.Windows.Controls;
 using UILibrary;
 
@@ -94,10 +94,7 @@ namespace Class
         public AToggle? T_CollectDataWhilePlaying { get; set; }
         public AToggle? T_AutoLabelData { get; set; }
         public ADropdown? D_MouseMovementMethod { get; set; }
-        public ComboBoxItem? DDI_LGHUB { get; set; }
-        public ComboBoxItem? DDI_RazerSynapse { get; set; }
         public ComboBoxItem? DDI_Arduino { get; set; }
-        public ComboBoxItem? DDI_ddxoft { get; set; }
         public ASlider? S_AIMinimumConfidence { get; set; }
         public AToggle? T_MouseBackgroundEffect { get; set; }
         public AToggle? T_UITopMost { get; set; }
@@ -109,8 +106,6 @@ namespace Class
         public AToggle? T_XAxisPercentageAdjustment { get; set; }
         public AToggle? T_YAxisPercentageAdjustment { get; set; }
 
-        // ddxoft UI
-        public AFileLocator? AFL_ddxoftDLLLocator { get; set; }
 
         // Stores
         public APButton? B_RepoManager { get; set; }
