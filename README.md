@@ -17,8 +17,8 @@ Aimmy but with Arduino support!
 - **HID Communication:** Utilizes HID instead of COM port communication, reducing detection risks in most games.
 - **Easy Setup:** Straightforward script upload process to your Arduino. Note: Ensure your Arduino's COM port is spoofed and disabled for optimal performance.
 - **Undetected Gameplay:** Undetected in every game except Fortnite, Valorant, and CS2. Arduino Leonardo required.
-- ** USB Host Shield Support: ** Added support for USB Host Shields, though this support probably won't work on Logitech and Razer mice. Many mice will have scroll wheel and side button issues.
-- ** Improvements over normal Aimmy: ** This uses Whoswhip's fork of Aimmy, which features the following:
+- **USB Host Shield Support:** Added support for USB Host Shields, though this support probably won't work on Logitech and Razer mice. Many mice will have scroll wheel and side button issues.
+- **Improvements over normal Aimmy: **This uses Whoswhip's fork of Aimmy, which features the following:
 ```diff
 + General Optimization
 + DirectX Screen Capturing (Taylor's Aimmy Cuda)
