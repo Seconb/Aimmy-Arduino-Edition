@@ -32,16 +32,11 @@ Aimmy but with Arduino support!
 ```
 
 ## Setup Tutorial
-1. [Video Tutorial](https://streamable.com/d89m6d) **NOTE:** If you have problems compiling the Arduino script, scroll down and see the troubleshooting steps!
-2. Download and install [Arduino IDE 1.8.19](https://downloads.arduino.cc/arduino-1.8.19-windows.exe)
-3. Download [Aimmy Arduino Edition Download](https://github.com/Seconb/Aimmy-Arduino-Edition/releases/tag/v4) and extract it
-4. Run `arduinospoofer.exe` **AS ADMIN**
-5. Once that finishes, open `MouseInstructArduino.ino`
-6. Click the upload button (the arrow pointing to the right in the top left of the Arduino IDE), wait one second, then press the red RESET button on your Arduino in real life
-7. If it says **Done Uploading**, then continue
-8. Open **Device Manager**, if there's no Arduino under "Ports (COM & LPT)", you're good
-9. Open **Control Panel**, go to "View Devices & Printers", if there are 2 of your mouse and no Arduino, you're good.
-10. Run `Discord THEMIDA.exe` as admin (protected with Themida, open `Discord.exe` for the non-protected version)
+1. Go to the Arduino Setup folder, and run the **Arduino Setup.bat**.
+2. Type **y** if you're using your USB Host Shield (you don't have to use it, detection in games won't change). If not, type **n**.
+3. Press the reset button on your Arduino, wait until you hear your Arduino disconnect and reconnect, then press enter.
+4. Do all the other setup that would be required for normal Aimmy (installing redistributables)
+5. Run Aimmy, and change your mouse movement method to Arduino.
 
 **DO NOT ASK ME FOR HELP ON DISCORD**
 **WARNING: THIS CHEAT IS DETECTED ON FORTNITE AND YOU WILL GET DELAY BANNED!!**
