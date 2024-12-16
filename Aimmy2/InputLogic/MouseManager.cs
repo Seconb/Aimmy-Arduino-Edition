@@ -1,9 +1,5 @@
 using Aimmy2.Class;
-using Aimmy2.MouseMovementLibraries.GHubSupport;
 using Class;
-using MouseMovementLibraries.ddxoftSupport;
-using MouseMovementLibraries.RazerSupport;
-using MouseMovementLibraries.SendInputSupport;
 using System.Diagnostics;
 using MouseMovementLibraries.ArduinoSupport;
 using System.Drawing;
@@ -19,17 +15,11 @@ namespace InputLogic
         private static DateTime LastClickTime = DateTime.MinValue;
         private static int LastAntiRecoilClickTime = 0;
 
-        private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
-        private const uint MOUSEEVENTF_LEFTUP = 0x0004;
-        private const uint MOUSEEVENTF_MOVE = 0x0001;
         private static double previousX = 0;
         private static double previousY = 0;
         public static double smoothingFactor = 0.5;
         public static bool IsEMASmoothingEnabled = false;
         public static double CurveStrength = 0.75;
-
-        [DllImport("user32.dll")]
-        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
 
         private static Random MouseRandom = new();
 
@@ -59,53 +49,13 @@ namespace InputLogic
         {
             int timeSinceLastClick = (int)(DateTime.UtcNow - LastClickTime).TotalMilliseconds;
             int triggerDelayMilliseconds = (int)(Dictionary.sliderSettings["Auto Trigger Delay"] * 1000);
-            const int clickDelayMilliseconds = 20;
 
             if (timeSinceLastClick < triggerDelayMilliseconds && LastClickTime != DateTime.MinValue)
             {
                 return;
             }
 
-            string mouseMovementMethod = Dictionary.dropdownState["Mouse Movement Method"];
-            Action mouseDownAction;
-            Action mouseUpAction;
-
-            switch (mouseMovementMethod)
-            {
-                case "SendInput":
-                    mouseDownAction = () => SendInputMouse.SendMouseCommand(MOUSEEVENTF_LEFTDOWN);
-                    mouseUpAction = () => SendInputMouse.SendMouseCommand(MOUSEEVENTF_LEFTUP);
-                    break;
-
-                case "LG HUB":
-                    mouseDownAction = () => LGMouse.Move(1, 0, 0, 0);
-                    mouseUpAction = () => LGMouse.Move(0, 0, 0, 0);
-                    break;
-
-                case "Razer Synapse (Require Razer Peripheral)":
-                    mouseDownAction = () => RZMouse.mouse_click(1);
-                    mouseUpAction = () => RZMouse.mouse_click(0);
-                    break;
-
-                case "ddxoft Virtual Input Driver":
-                    mouseDownAction = () => DdxoftMain.ddxoftInstance.btn!(1);
-                    mouseUpAction = () => DdxoftMain.ddxoftInstance.btn(2);
-                    break;
-
-                case "Arduino":
-                    mouseDownAction = () => arduinoMouse.SendMouseCommand(0, 0, 1);
-                    mouseUpAction = () => {};
-                    break;
-
-                default:
-                    mouseDownAction = () => mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                    mouseUpAction = () => mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                    break;
-            }
-
-            mouseDownAction.Invoke();
-            await Task.Delay(clickDelayMilliseconds);
-            mouseUpAction.Invoke();
+            arduinoMouse.SendMouseCommand(0, 0, 1);
 
             LastClickTime = DateTime.UtcNow;
         }
@@ -122,32 +72,7 @@ namespace InputLogic
             int xRecoil = (int)Dictionary.AntiRecoilSettings["X Recoil (Left/Right)"];
             int yRecoil = (int)Dictionary.AntiRecoilSettings["Y Recoil (Up/Down)"];
 
-            switch (Dictionary.dropdownState["Mouse Movement Method"])
-            {
-                case "SendInput":
-                    SendInputMouse.SendMouseCommand(MOUSEEVENTF_MOVE, xRecoil, yRecoil);
-                    break;
-
-                case "LG HUB":
-                    LGMouse.Move(0, xRecoil, yRecoil, 0);
-                    break;
-
-                case "Razer Synapse (Require Razer Peripheral)":
-                    RZMouse.mouse_move(xRecoil, yRecoil, true);
-                    break;
-
-                case "ddxoft Virtual Input Driver":
-                    DdxoftMain.ddxoftInstance.movR!(xRecoil, yRecoil);
-                    break;
-
-                case "Arduino":
-                    arduinoMouse.SendMouseCommand(xRecoil, yRecoil, 0);
-                    break;
-
-                default:
-                    mouse_event(MOUSEEVENTF_MOVE, (uint)xRecoil, (uint)yRecoil, 0, 0);
-                    break;
-            }
+            arduinoMouse.SendMouseCommand(xRecoil, yRecoil, 0);
 
             LastAntiRecoilClickTime = DateTime.UtcNow.Millisecond;
         }
@@ -187,32 +112,7 @@ namespace InputLogic
             targetX += jitterX;
             targetY += jitterY;
 
-            switch (Dictionary.dropdownState["Mouse Movement Method"])
-            {
-                case "SendInput":
-                    SendInputMouse.SendMouseCommand(MOUSEEVENTF_MOVE, newPosition.X, newPosition.Y);
-                    break;
-
-                case "LG HUB":
-                    LGMouse.Move(0, newPosition.X, newPosition.Y, 0);
-                    break;
-
-                case "Razer Synapse (Require Razer Peripheral)":
-                    RZMouse.mouse_move(newPosition.X, newPosition.Y, true);
-                    break;
-
-                case "ddxoft Virtual Input Driver":
-                    DdxoftMain.ddxoftInstance.movR!(newPosition.X, newPosition.Y);
-                    break;
-
-                case "Arduino":
-                    arduinoMouse.SendMouseCommand(newPosition.X, newPosition.Y, 0);
-                    break;
-
-                default:
-                    mouse_event(MOUSEEVENTF_MOVE, (uint)newPosition.X, (uint)newPosition.Y, 0, 0);
-                    break;
-            }
+            arduinoMouse.SendMouseCommand(newPosition.X, newPosition.Y, 0);
 
             if (Dictionary.toggleState["Auto Trigger"])
             {
