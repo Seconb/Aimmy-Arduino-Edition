@@ -61,7 +61,6 @@ namespace Aimmy2.Class
             { "Show Detected Player", false },
             { "Show AI Confidence", false },
             { "Show Tracers", false },
-            { "LG HUB Mouse Movement", false },
             { "Mouse Background Effect", false },
             { "UI TopMost", false },
             { "Debug Mode", false },
@@ -105,7 +104,6 @@ namespace Aimmy2.Class
 
         public static Dictionary<string, dynamic> filelocationState = new()
         {
-            { "ddxoft DLL Location", ""},
             { "Gun 1 Config", "" },
             { "Gun 2 Config", "" }
         };
