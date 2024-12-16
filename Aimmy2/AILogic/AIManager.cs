@@ -1,4 +1,4 @@
-﻿using Aimmy2.Class;
+using Aimmy2.Class;
 using Class;
 using InputLogic;
 using Microsoft.ML.OnnxRuntime;
