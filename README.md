@@ -14,7 +14,6 @@ Aimmy but with Arduino support!
 - [Credits](#credits)
 
 ## Features
-- **HID Communication:** Utilizes HID instead of COM port communication, reducing detection risks in most games.
 - **Easy Setup:** Setup in just a few clicks.
 - **Undetected Gameplay:** Undetected in every game except Fortnite, Valorant, and CS2. Arduino Leonardo required.
 - **USB Host Shield Support:** Added support for USB Host Shields, though this support probably won't work on Logitech and Razer mice. Many mice will have scroll wheel and side button issues.
