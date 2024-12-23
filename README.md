@@ -3,6 +3,7 @@
 Aimmy but with Arduino support!
 
 **WARNING: THIS CHEAT IS DETECTED ON FORTNITE AND YOU WILL GET DELAY BANNED!!**
+**This version has ban risk on R6, if you're playing R6 go use the old version.**
 
 **DO NOT ASK FOR HELP ON DISCORD. DO NOT DM ME ON DISCORD AT ALL**
 
