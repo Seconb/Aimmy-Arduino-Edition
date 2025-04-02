@@ -16,7 +16,7 @@ Aimmy but with Arduino support!
 
 ## Features
 - **Easy Setup:** Setup in just a few clicks.
-- **Undetected Gameplay:** Undetected in every game except Fortnite, Valorant, and CS2. Arduino Leonardo required.
+- **Undetected Gameplay:** Undetected in every game except Fortnite, Valorant, and CS2. Arduino Leonardo required. (Note: As of 04/01/2025 there are actually a lot more games where it's detected but the issue is with Aimmy itself being flagged, not Arduino. Use with caution and ask in the community found games channel for help in the Aimmy Discord)
 - **USB Host Shield Support:** Added support for USB Host Shields, though this support probably won't work on Logitech and Razer mice. Many mice will have scroll wheel and side button issues.
 - **Improvements over normal Aimmy: **This uses Whoswhip's fork of Aimmy, which features the following:
 ```diff
