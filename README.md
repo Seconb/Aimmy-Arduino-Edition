@@ -2,7 +2,7 @@
 
 Aimmy but with Arduino support!
 
-** Detected on many games, honestly it's just Aimmy's fault lol, it's flagged pretty bad. **
+**Detected on many games, honestly it's just Aimmy's fault lol, it's flagged pretty bad.**
 
 **DO NOT ASK FOR HELP ON DISCORD. DO NOT DM ME ON DISCORD AT ALL**
 
@@ -14,21 +14,8 @@ Aimmy but with Arduino support!
 - [Credits](#credits)
 
 ## Features
-- **Easy Setup:** Setup in just a few clicks.
-- **Undetected Gameplay:** Undetected in every game except Fortnite, Valorant, and CS2. Arduino Leonardo required. (Note: As of 04/01/2025 there are actually a lot more games where it's detected but the issue is with Aimmy itself being flagged, not Arduino. Use with caution and ask in the community found games channel for help in the Aimmy Discord)
-- **USB Host Shield Support:** Added support for USB Host Shields, though this support probably won't work on Logitech and Razer mice. Many mice will have scroll wheel and side button issues.
-- **Improvements over normal Aimmy: **This uses Whoswhip's fork of Aimmy, which features the following:
-```diff
-+ General Optimization
-+ DirectX Screen Capturing (Taylor's Aimmy Cuda)
-+ Third Person Support (Fov Settings)
-+ Bezier Curve Strength
-+ Debug Mode (AI Loop Speed)
-
-- Prediction Removed
-- Data Collection Removed
-- GDI Screen Capturing Removed
-```
+- Aimmy but it's Arduino
+- Undetected on some games where Aimmy is detected (Apex Legends works, a lot of games have since flagged Aimmy though.)
 
 ## Setup Tutorial
 0. Video: [Setup Tutorial on Streamable](https://streamable.com/c77jhu) https://streamable.com/c77jhu (Text tutorial below)
