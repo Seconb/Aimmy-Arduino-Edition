@@ -2,8 +2,7 @@
 
 Aimmy but with Arduino support!
 
-**WARNING: THIS CHEAT IS DETECTED ON FORTNITE AND YOU WILL GET DELAY BANNED!!**
-**This version has ban risk on R6, if you're playing R6 go use the old version.**
+** Detected on many games, honestly it's just Aimmy's fault lol, it's flagged pretty bad. **
 
 **DO NOT ASK FOR HELP ON DISCORD. DO NOT DM ME ON DISCORD AT ALL**
 
@@ -32,14 +31,14 @@ Aimmy but with Arduino support!
 ```
 
 ## Setup Tutorial
-0. Before Arduino Setup, make sure you have WMIC (Windows 11 Users only): https://techcommunity.microsoft.com/blog/windows-itpro-blog/how-to-install-wmic-feature-on-demand-on-windows-11/4189530
-[![Video Tutorial](https://img.youtube.com/vi/1aRrjKzYCG0/0.jpg)](https://www.youtube.com/watch?v=1aRrjKzYCG0)
-1. Go to the Arduino Setup folder, and run the **Arduino Setup.bat**.
-2. Type **y** if you're using your USB Host Shield (you don't have to use it, detection in games won't change). If not, type **n**.
-3. Press the reset button on your Arduino, wait until you hear your Arduino disconnect and reconnect, then press enter.
-4. Do all the other setup that would be required for normal Aimmy (installing redistributables)
-5. Run Aimmy, and change your mouse movement method to Arduino.
-
+0. Video: [![Setup Tutorial on Streamable]](https://streamable.com/c77jhu) https://streamable.com/c77jhu (Text tutorial below)
+1. Download Arduino IDE 1.8.19 ("legacy" download on arduino.cc)
+2. Drag the libraries folder into Documents\Arduino\libraries (replace the old libraries folder with the one here, be careful not to corrupt your old libraries)
+3. Run the spoofer, spoof according to the correct mouse.
+4. Upload the script in the serial folder. (NO USB HOST SHIELD SUPPORT, PLUG MOUSE INTO PC OR ADD USB HOST SHIELD SUPPORT TO SCRIPT MANUALLY)
+5. Open Device Manager, go to Ports (COM & LPT), then look for the Arduino COM Port ("USB Serial Device"). Remember what number it is.
+6. Open Aimmy Arduino Edition (Spotify.exe or SpotifyTh3m1daProtected.exe, protected is better), then in settings slide the COM port to the right one. Then, click save.
+7. Use like normal Aimmy.
 **DO NOT ASK ME FOR HELP ON DISCORD**
 **WARNING: THIS CHEAT IS DETECTED ON FORTNITE AND YOU WILL GET DELAY BANNED!!**
 
