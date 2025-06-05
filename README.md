@@ -31,7 +31,7 @@ Aimmy but with Arduino support!
 ```
 
 ## Setup Tutorial
-0. Video: [![Setup Tutorial on Streamable]](https://streamable.com/c77jhu) https://streamable.com/c77jhu (Text tutorial below)
+0. Video: [Setup Tutorial on Streamable](https://streamable.com/c77jhu) https://streamable.com/c77jhu (Text tutorial below)
 1. Download Arduino IDE 1.8.19 ("legacy" download on arduino.cc)
 2. Drag the libraries folder into Documents\Arduino\libraries (replace the old libraries folder with the one here, be careful not to corrupt your old libraries)
 3. Run the spoofer, spoof according to the correct mouse.
